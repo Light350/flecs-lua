@@ -1,0 +1,35 @@
+-- Script para dar dinheiro e uma fruta ao jogador
+
+-- Função para dar dinheiro ao jogador
+local function darDinheiro(jogador, quantia)
+    local leaderstats = jogador:FindFirstChild("leaderstats")
+    if leaderstats then
+        local dinheiro = leaderstats:FindFirstChild("Dinheiro")
+        if dinheiro then
+            dinheiro.Value = dinheiro.Value + quantia
+            print("Você recebeu " .. quantia .. " de dinheiro!")
+        end
+    end
+end
+
+-- Função para dar uma fruta ao jogador
+local function darFruta(jogador, fruta)
+    local frutas = jogador:FindFirstChild("Frutas")
+    if frutas then
+        local novaFruta = Instance.new("StringValue")
+        novaFruta.Name = fruta
+        novaFruta.Value = fruta
+        novaFruta.Parent = frutas
+        print("Você recebeu uma fruta: " .. fruta)
+    end
+end
+
+-- Evento que é chamado quando um jogador entra no jogo
+game.Players.PlayerAdded:Connect(function(jogador)
+    -- Espera até que o jogador tenha leaderstats
+    jogador.CharacterAdded:Wait()
+    
+    -- Dar dinheiro e uma fruta ao jogador
+    darDinheiro(jogador, 1000) -- dá 1000 de dinheiro
+    darFruta(jogador, "Mera Mera no Mi") -- dá a fruta Mera Mera no Mi
+end)
